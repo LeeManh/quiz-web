@@ -42,7 +42,7 @@ export const Form = styled.form`
 export const CameraWrap = styled.div`
   width: 100px;
   height: 100px;
-  background-color: red;
+  background-color: #999595;
   padding: 10px;
   border-radius: 100%;
   position: absolute;
@@ -102,4 +102,5 @@ export const ButtonForm = styled.button`
   border-radius: 5px;
   width: 100%;
   padding: 12px 20px;
+  font-weight: bold;
 `;

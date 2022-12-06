@@ -1,4 +1,6 @@
-import React from "react";
+import { BiUser } from "react-icons/bi";
+import { AiFillUnlock } from "react-icons/ai";
+
 import { Container } from "../../GolbalStyles.styled";
 import {
   ButtonForm,
@@ -13,8 +15,6 @@ import {
   LoginContainer,
   Wrapper,
 } from "./Login.styled";
-import { BiUser } from "react-icons/bi";
-import { AiFillUnlock } from "react-icons/ai";
 import CameraImg from "assets/images/camera-icon.png";
 
 const Login = () => {
@@ -39,7 +39,7 @@ const Login = () => {
             <FormItem>
               <InputContainer>
                 <IconWrap>
-                  <AiFillUnlock style={{ color: "black" }} />
+                  <AiFillUnlock />
                 </IconWrap>
                 <Input type="password" placeholder="password" />
               </InputContainer>
@@ -51,6 +51,7 @@ const Login = () => {
                 <span>Remember me</span>
               </CheckBoxWrap>
             </FormItem>
+
             <FormItem>
               <ButtonForm>Login</ButtonForm>
             </FormItem>
