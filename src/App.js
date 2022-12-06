@@ -1,14 +1,9 @@
 import React from "react";
+import useRouteElements from "./hooks/useRouteElements";
 
 const App = () => {
-  return (
-    <div>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae maxime id,
-      ipsam praesentium rem, necessitatibus a similique eaque dolorum fuga
-      doloremque. Id earum dolor, voluptatibus reiciendis voluptas numquam nulla
-      exercitationem.
-    </div>
-  );
+  const elements = useRouteElements();
+  return <div>{elements}</div>;
 };
 
 export default App;
