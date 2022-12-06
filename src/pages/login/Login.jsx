@@ -16,6 +16,7 @@ import {
   Wrapper,
 } from "./Login.styled";
 import CameraImg from "assets/images/camera-icon.png";
+import bg from "assets/images/bg-login.jpg";
 
 const Login = () => {
   return (

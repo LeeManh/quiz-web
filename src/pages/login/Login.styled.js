@@ -3,6 +3,7 @@ import bg from "assets/images/bg-login.jpg";
 
 export const LoginContainer = styled.div`
   height: 100vh;
+  width: 100vw;
   background: url(${bg}) no-repeat center;
   background-size: cover;
 `;
@@ -19,7 +20,7 @@ export const Form = styled.form`
   position: relative;
   grid-column: 7 / 12;
 
-  max-width: 560px;
+  max-width: 500px;
   margin: 0 auto;
   width: 100%;
   background-color: #999595;
