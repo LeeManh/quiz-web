@@ -8,7 +8,13 @@ export const GlobalStyle = createGlobalStyle`
   }
   
   body {
-    font-size: 15px;
+    font-size: 15px; 
+    color: black;
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
   }
 `;
 
@@ -17,4 +23,11 @@ export const Container = styled.div`
   padding-left: 20px;
   padding-right: 20px;
   margin: 0 auto;
+`;
+
+export const OverLay = styled.div`
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  display: ${(props) => (props.show ? "block" : "none")};
 `;

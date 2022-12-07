@@ -1,4 +1,5 @@
 import Pagination from "components/Pagination";
+import { OverLay } from "GolbalStyles.styled";
 import React, { useEffect, useState } from "react";
 import { BiMenu } from "react-icons/bi";
 
@@ -18,7 +19,6 @@ import {
   NavBar,
   NavBarIconWrap,
   NavBarTitle,
-  OverLay,
   PaginationWrap,
   SearchWrap,
   SelectLevel,
@@ -37,7 +37,7 @@ const DashBoard = () => {
   return (
     <>
       <NavBar>
-        <NavBarIconWrap onClick={() => setIsOpenMenu((pre) => !pre)}>
+        <NavBarIconWrap onClick={() => setIsOpenMenu(true)}>
           <BiMenu />
         </NavBarIconWrap>
         <NavBarTitle>DashBoard</NavBarTitle>
@@ -70,9 +70,9 @@ const DashBoard = () => {
             </SearchWrap>
 
             <SelectLevel>
-              <option value="1">Lorem ipsum dolor sit amet.</option>
-              <option value="2">Lorem ipsum dolor sit amet.</option>
-              <option value="3">Lorem ipsum dolor sit amet.</option>
+              <option value="1">Difficult</option>
+              <option value="2">Medium</option>
+              <option value="3">Easy</option>
             </SelectLevel>
           </HeaderContent>
 

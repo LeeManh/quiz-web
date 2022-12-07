@@ -3,7 +3,7 @@ import useRouteElements from "./hooks/useRouteElements";
 
 const App = () => {
   const elements = useRouteElements();
-  return <div>{elements}</div>;
+  return <>{elements}</>;
 };
 
 export default App;

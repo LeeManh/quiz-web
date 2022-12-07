@@ -37,13 +37,6 @@ export const SideMenu = styled.div`
   }
 `;
 
-export const OverLay = styled.div`
-  position: fixed;
-  inset: 0;
-  background-color: rgba(0, 0, 0, 0.3);
-  display: ${(props) => (props.show ? "block" : "none")};
-`;
-
 export const TopSideMenu = styled.div`
   > *:not(:first-child) {
     margin-top: 15px;
@@ -87,13 +80,15 @@ export const Content = styled.div`
 `;
 export const HeaderContent = styled.div`
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 30px;
+  gap: 20px;
 `;
 export const SearchWrap = styled.div`
   display: flex;
   align-items: center;
   flex-grow: 1;
+  /* width: 100%; */
   height: 40px;
   border-radius: 5px;
   border: 1px solid black;
@@ -122,12 +117,16 @@ export const IconSearch = styled(AiOutlineSearch)`
   height: 20px;
 `;
 export const SelectLevel = styled.select`
-  max-width: 300px;
-  width: 30%;
+  width: 200px;
   height: 40px;
   border-radius: 5px;
   border: 1px solid black;
   padding: 0 20px;
+  margin-left: auto;
+
+  @media screen and (max-width: 768px) {
+    padding: 0 10px;
+  }
 `;
 export const MainContent = styled.div`
   margin-top: 15px;
