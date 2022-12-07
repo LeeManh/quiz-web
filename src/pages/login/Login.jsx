@@ -1,5 +1,8 @@
 import { BiUser } from "react-icons/bi";
 import { AiFillUnlock } from "react-icons/ai";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 
 import { Container } from "../../GolbalStyles.styled";
 import {
@@ -7,6 +10,7 @@ import {
   CameraIcon,
   CameraWrap,
   CheckBoxWrap,
+  ErrorText,
   Form,
   FormItem,
   IconWrap,
@@ -16,14 +20,33 @@ import {
   Wrapper,
 } from "./Login.styled";
 import CameraImg from "assets/images/camera-icon.png";
-import bg from "assets/images/bg-login.jpg";
+
+const schema = yup
+  .object({
+    userName: yup.string().trim().required("Cần nhập tên người dùng"),
+    password: yup
+      .string()
+      .trim()
+      .required("Cần nhập mật khẩu")
+      .min(6, "Tối thiểu 6 ký tự"),
+  })
+  .required();
 
 const Login = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+  const onSubmit = (data) => {};
+
   return (
     <LoginContainer>
       <Container>
         <Wrapper>
-          <Form>
+          <Form onSubmit={handleSubmit(onSubmit)}>
             <CameraWrap>
               <CameraIcon src={CameraImg} alt="" />
             </CameraWrap>
@@ -33,8 +56,13 @@ const Login = () => {
                 <IconWrap>
                   <BiUser />
                 </IconWrap>
-                <Input type="text" placeholder="user name" />
+                <Input
+                  type="text"
+                  placeholder="user name"
+                  {...register("userName")}
+                />
               </InputContainer>
+              <ErrorText>{errors.userName?.message}</ErrorText>
             </FormItem>
 
             <FormItem>
@@ -42,8 +70,13 @@ const Login = () => {
                 <IconWrap>
                   <AiFillUnlock />
                 </IconWrap>
-                <Input type="password" placeholder="password" />
+                <Input
+                  type="password"
+                  placeholder="password"
+                  {...register("password")}
+                />
               </InputContainer>
+              <ErrorText>{errors.password?.message}</ErrorText>
             </FormItem>
 
             <FormItem>

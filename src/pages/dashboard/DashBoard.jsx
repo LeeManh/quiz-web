@@ -1,9 +1,9 @@
-import Pagination from "components/Pagination";
-import { OverLay } from "GolbalStyles.styled";
 import React, { useEffect, useState } from "react";
 import { BiMenu } from "react-icons/bi";
 
-import ListQuiz from "./components/ListQuiz/ListQuiz";
+import Pagination from "components/common/Pagination";
+import { OverLay } from "GolbalStyles.styled";
+import ListQuiz from "components/dashboard/ListQuiz/ListQuiz";
 import {
   AvatarWrap,
   Button,
@@ -29,6 +29,17 @@ import {
 const DashBoard = () => {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
 
+  const RenderNavBar = () => {
+    return (
+      <NavBar>
+        <NavBarIconWrap onClick={() => setIsOpenMenu(true)}>
+          <BiMenu />
+        </NavBarIconWrap>
+        <NavBarTitle>DashBoard</NavBarTitle>
+      </NavBar>
+    );
+  };
+
   useEffect(() => {
     if (isOpenMenu) document.body.style.overflow = "hidden";
     else document.body.style.overflow = "unset";
@@ -36,13 +47,7 @@ const DashBoard = () => {
 
   return (
     <>
-      <NavBar>
-        <NavBarIconWrap onClick={() => setIsOpenMenu(true)}>
-          <BiMenu />
-        </NavBarIconWrap>
-        <NavBarTitle>DashBoard</NavBarTitle>
-      </NavBar>
-
+      <RenderNavBar />
       <DashBoardContainer>
         <SideMenu show={isOpenMenu}>
           <TopSideMenu>

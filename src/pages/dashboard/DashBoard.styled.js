@@ -1,23 +1,26 @@
-import { Container } from "GolbalStyles.styled";
-import { AiOutlineSearch } from "react-icons/ai";
 import styled from "styled-components";
 
+import { Container } from "GolbalStyles.styled";
+import { AiOutlineSearch } from "react-icons/ai";
+import colors from "constants/colors";
+import breakPoints from "constants/breakPoints";
+
 export const DashBoardContainer = styled(Container)`
-  background-color: #c4c4c4;
+  background-color: ${colors["gray-dark"]};
   display: flex;
 
   @media screen and (min-width: 1025px) {
     padding-left: 0;
   }
 
-  @media screen and (max-width: 1024px) {
+  @media screen and (max-width: ${breakPoints.lg}) {
     margin-top: 65px;
   }
 `;
 
 export const SideMenu = styled.div`
   max-width: 300px;
-  background-color: #d9d9d9;
+  background-color: ${colors.gray};
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -26,7 +29,7 @@ export const SideMenu = styled.div`
   padding: 30px 20px;
   box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 
-  @media screen and (max-width: 1024px) {
+  @media screen and (max-width: ${breakPoints.lg}) {
     z-index: 100;
     position: fixed;
     top: 0;
@@ -71,10 +74,10 @@ export const Button = styled.div`
 
 export const Content = styled.div`
   flex-grow: 1;
-  background-color: #c4c4c4;
+  background-color: ${colors["gray-dark"]};
   padding: 15px 30px;
 
-  @media screen and (max-width: 1024px) {
+  @media screen and (max-width: ${breakPoints.lg}) {
     padding: 15px 0;
   }
 `;
@@ -88,7 +91,6 @@ export const SearchWrap = styled.div`
   display: flex;
   align-items: center;
   flex-grow: 1;
-  /* width: 100%; */
   height: 40px;
   border-radius: 5px;
   border: 1px solid black;
@@ -97,7 +99,7 @@ export const SearchWrap = styled.div`
 export const InputSearch = styled.input`
   flex-grow: 1;
   padding: 10px 20px;
-  background-color: #f3f1f1;
+  background-color: ${colors.input};
   height: 100%;
   border: none;
   outline: none;
@@ -124,7 +126,7 @@ export const SelectLevel = styled.select`
   padding: 0 20px;
   margin-left: auto;
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: ${breakPoints.md}) {
     padding: 0 10px;
   }
 `;
@@ -133,7 +135,7 @@ export const MainContent = styled.div`
 `;
 export const ListQuizWrap = styled.div`
   padding: 30px;
-  background-color: #d9d9d9;
+  background-color: ${colors.gray};
   border-radius: 4px;
 `;
 export const PaginationWrap = styled.div`
@@ -143,7 +145,7 @@ export const PaginationWrap = styled.div`
 `;
 
 export const NavBar = styled(Container)`
-  background-color: #545151;
+  background-color: ${colors.navbar};
   height: 65px;
   position: fixed;
   top: 0;
@@ -152,12 +154,12 @@ export const NavBar = styled(Container)`
   align-items: center;
   text-align: center;
 
-  @media screen and (max-width: 1024px) {
+  @media screen and (max-width: ${breakPoints.lg}) {
     display: flex;
   }
 `;
 export const NavBarIconWrap = styled.div`
-  background-color: #d9d9d9;
+  background-color: ${colors.gray};
   width: 32px;
   height: 32px;
   border-radius: 4px;
