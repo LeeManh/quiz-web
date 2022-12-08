@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import bg from "assets/images/bg-login.jpg";
+import breakPoints from "constants/breakPoints";
 
 export const LoginContainer = styled.div`
   height: 100vh;
@@ -19,7 +20,6 @@ export const Wrapper = styled.div`
 export const Form = styled.form`
   position: relative;
   grid-column: 7 / 12;
-
   max-width: 500px;
   margin: 0 auto;
   width: 100%;
@@ -27,16 +27,15 @@ export const Form = styled.form`
   border-radius: 3px;
   min-height: 300px;
   border: 2px solid yellow;
-
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  row-gap: 30px;
+  row-gap: 20px;
   padding-top: 80px;
   padding-bottom: 80px;
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: ${breakPoints.md}) {
     grid-column: 1 / -1;
   }
 `;
@@ -68,12 +67,18 @@ export const InputContainer = styled.div`
   height: 50px;
   background-color: white;
   border-radius: 5px;
+  overflow: hidden;
 `;
 export const Input = styled.input`
-  background-color: transparent;
+  width: 100%;
+  height: 100%;
   outline: none;
   border: none;
-  padding-right: 20px;
+  padding: 0 10px;
+`;
+
+export const ErrorText = styled.div`
+  margin-top: 10px;
 `;
 export const IconWrap = styled.div`
   width: 50px;
@@ -81,6 +86,7 @@ export const IconWrap = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
 
   > svg {
     color: black;
@@ -104,4 +110,5 @@ export const ButtonForm = styled.button`
   width: 100%;
   padding: 12px 20px;
   font-weight: bold;
+  cursor: pointer;
 `;

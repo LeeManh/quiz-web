@@ -32,16 +32,3 @@ export const IconImg = styled.img`
   height: 26px;
   object-fit: contain;
 `;
-export const RatingWrap = styled.div`
-  margin-top: 15px;
-`;
-export const StartImg = styled.img`
-  width: 26px;
-  height: 26px;
-  object-fit: contain;
-
-  @media screen and (max-width: 768px) {
-    width: 20px;
-    height: 20px;
-  }
-`;

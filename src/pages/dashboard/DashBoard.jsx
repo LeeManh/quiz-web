@@ -1,9 +1,10 @@
-import Pagination from "components/Pagination";
-import { OverLay } from "GolbalStyles.styled";
 import React, { useEffect, useState } from "react";
 import { BiMenu } from "react-icons/bi";
+import { useDispatch, useSelector } from "react-redux";
 
-import ListQuiz from "./components/ListQuiz/ListQuiz";
+import Pagination from "components/common/Pagination";
+import { OverLay } from "GolbalStyles.styled";
+import ListQuiz from "components/dashboard/ListQuiz/ListQuiz";
 import {
   AvatarWrap,
   Button,
@@ -25,9 +26,28 @@ import {
   SideMenu,
   TopSideMenu,
 } from "./DashBoard.styled";
+import { logout, selectAuth } from "redux/authSlice";
 
 const DashBoard = () => {
+  const dispatch = useDispatch();
+  const { user } = useSelector(selectAuth);
+
   const [isOpenMenu, setIsOpenMenu] = useState(false);
+
+  const RenderNavBar = () => {
+    return (
+      <NavBar>
+        <NavBarIconWrap onClick={() => setIsOpenMenu(true)}>
+          <BiMenu />
+        </NavBarIconWrap>
+        <NavBarTitle>DashBoard</NavBarTitle>
+      </NavBar>
+    );
+  };
+
+  const handleLogout = () => {
+    dispatch(logout());
+  };
 
   useEffect(() => {
     if (isOpenMenu) document.body.style.overflow = "hidden";
@@ -36,12 +56,7 @@ const DashBoard = () => {
 
   return (
     <>
-      <NavBar>
-        <NavBarIconWrap onClick={() => setIsOpenMenu(true)}>
-          <BiMenu />
-        </NavBarIconWrap>
-        <NavBarTitle>DashBoard</NavBarTitle>
-      </NavBar>
+      <RenderNavBar />
 
       <DashBoardContainer>
         <SideMenu show={isOpenMenu}>
@@ -52,11 +67,11 @@ const DashBoard = () => {
                 alt=""
               />
             </AvatarWrap>
-            <InforText>User : lemanh123@gmail.com</InforText>
-            <InforText>Point : 1233</InforText>
+            <InforText>User : {user.email}</InforText>
+            <InforText>Point : {user.point}</InforText>
           </TopSideMenu>
 
-          <Button>Logout</Button>
+          <Button onClick={handleLogout}>Đăng xuất</Button>
         </SideMenu>
         <OverLay show={isOpenMenu} onClick={() => setIsOpenMenu(false)} />
 

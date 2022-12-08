@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 import { Container } from "GolbalStyles.styled";
+import breakPoints from "constants/breakPoints";
 
 export const ExamContainer = styled(Container)`
   display: flex;
@@ -82,7 +83,7 @@ export const ButtonGotoWrap = styled.div`
   justify-content: center;
   margin-top: 30px;
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: ${breakPoints.md}) {
     display: flex;
   }
 `;
@@ -100,7 +101,7 @@ export const SideMenu = styled.div`
     max-width: 300px;
   }
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: ${breakPoints.md}) {
     max-width: 400px;
     position: fixed;
     z-index: 100;
