@@ -67,12 +67,14 @@ export const InputContainer = styled.div`
   height: 50px;
   background-color: white;
   border-radius: 5px;
+  overflow: hidden;
 `;
 export const Input = styled.input`
-  background-color: transparent;
+  width: 100%;
+  height: 100%;
   outline: none;
   border: none;
-  padding-right: 20px;
+  padding: 0 10px;
 `;
 
 export const ErrorText = styled.div`
@@ -84,6 +86,7 @@ export const IconWrap = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
 
   > svg {
     color: black;
@@ -107,4 +110,5 @@ export const ButtonForm = styled.button`
   width: 100%;
   padding: 12px 20px;
   font-weight: bold;
+  cursor: pointer;
 `;

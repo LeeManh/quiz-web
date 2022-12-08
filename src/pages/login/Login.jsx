@@ -2,7 +2,8 @@ import { BiUser } from "react-icons/bi";
 import { AiFillUnlock } from "react-icons/ai";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 
 import { Container } from "../../GolbalStyles.styled";
 import {
@@ -20,33 +21,60 @@ import {
   Wrapper,
 } from "./Login.styled";
 import CameraImg from "assets/images/camera-icon.png";
-
-const schema = yup
-  .object({
-    userName: yup.string().trim().required("Cần nhập tên người dùng"),
-    password: yup
-      .string()
-      .trim()
-      .required("Cần nhập mật khẩu")
-      .min(6, "Tối thiểu 6 ký tự"),
-  })
-  .required();
+import users from "data/users";
+import schema from "utils/rules";
+import { loginSuccess } from "redux/authSlice";
 
 const Login = () => {
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
   });
-  const onSubmit = (data) => {};
+
+  const [error, setError] = useState(null);
+
+  const onSubmit = (data) => {
+    const { email, password } = data;
+    handleResetError();
+
+    const findUser = users.find(
+      (user) => user.email === email && user.password === password
+    );
+
+    if (!findUser) {
+      setError("Sai user name hoặc mật khẩu");
+      return;
+    }
+
+    dispatch(
+      loginSuccess({
+        user: {
+          email: findUser.email,
+          password: findUser.password,
+          roles: findUser.roles,
+          point: findUser.point,
+        },
+      })
+    );
+
+    reset();
+  };
+
+  const handleResetError = () => {
+    setError(null);
+  };
 
   return (
     <LoginContainer>
       <Container>
         <Wrapper>
           <Form onSubmit={handleSubmit(onSubmit)}>
+            <ErrorText>{error}</ErrorText>
             <CameraWrap>
               <CameraIcon src={CameraImg} alt="" />
             </CameraWrap>
@@ -56,13 +84,9 @@ const Login = () => {
                 <IconWrap>
                   <BiUser />
                 </IconWrap>
-                <Input
-                  type="text"
-                  placeholder="user name"
-                  {...register("userName")}
-                />
+                <Input type="text" placeholder="Email" {...register("email")} />
               </InputContainer>
-              <ErrorText>{errors.userName?.message}</ErrorText>
+              <ErrorText>{errors.email?.message}</ErrorText>
             </FormItem>
 
             <FormItem>
@@ -72,7 +96,7 @@ const Login = () => {
                 </IconWrap>
                 <Input
                   type="password"
-                  placeholder="password"
+                  placeholder="Mật khẩu"
                   {...register("password")}
                 />
               </InputContainer>

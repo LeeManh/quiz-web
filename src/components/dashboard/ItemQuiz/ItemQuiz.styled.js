@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import breakPoints from "constants/breakPoints";
 
 export const ItemQuizContainer = styled(Link)`
   padding: 10px;
@@ -32,17 +31,4 @@ export const IconImg = styled.img`
   width: 26px;
   height: 26px;
   object-fit: contain;
-`;
-export const RatingWrap = styled.div`
-  margin-top: 15px;
-`;
-export const StartImg = styled.img`
-  width: 26px;
-  height: 26px;
-  object-fit: contain;
-
-  @media screen and (max-width: ${breakPoints.md}) {
-    width: 20px;
-    height: 20px;
-  }
 `;

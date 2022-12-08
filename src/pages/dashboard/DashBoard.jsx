@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { BiMenu } from "react-icons/bi";
+import { useDispatch, useSelector } from "react-redux";
 
 import Pagination from "components/common/Pagination";
 import { OverLay } from "GolbalStyles.styled";
@@ -25,8 +26,12 @@ import {
   SideMenu,
   TopSideMenu,
 } from "./DashBoard.styled";
+import { logout, selectAuth } from "redux/authSlice";
 
 const DashBoard = () => {
+  const dispatch = useDispatch();
+  const { user } = useSelector(selectAuth);
+
   const [isOpenMenu, setIsOpenMenu] = useState(false);
 
   const RenderNavBar = () => {
@@ -40,6 +45,10 @@ const DashBoard = () => {
     );
   };
 
+  const handleLogout = () => {
+    dispatch(logout());
+  };
+
   useEffect(() => {
     if (isOpenMenu) document.body.style.overflow = "hidden";
     else document.body.style.overflow = "unset";
@@ -48,6 +57,7 @@ const DashBoard = () => {
   return (
     <>
       <RenderNavBar />
+
       <DashBoardContainer>
         <SideMenu show={isOpenMenu}>
           <TopSideMenu>
@@ -57,11 +67,11 @@ const DashBoard = () => {
                 alt=""
               />
             </AvatarWrap>
-            <InforText>User : lemanh123@gmail.com</InforText>
-            <InforText>Point : 1233</InforText>
+            <InforText>User : {user.email}</InforText>
+            <InforText>Point : {user.point}</InforText>
           </TopSideMenu>
 
-          <Button>Logout</Button>
+          <Button onClick={handleLogout}>Đăng xuất</Button>
         </SideMenu>
         <OverLay show={isOpenMenu} onClick={() => setIsOpenMenu(false)} />
 

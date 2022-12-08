@@ -1,42 +1,34 @@
 import React from "react";
 import ClockIcon from "assets/images/clock-icon.png";
 import PointIcon from "assets/images/point-icon.png";
-import StartActive from "assets/images/start-active.png";
-import StartUnActive from "assets/images/start-unactive.png";
 import {
   IconImg,
   Infor,
   InforItem,
   InforText,
   ItemQuizContainer,
-  RatingWrap,
-  StartImg,
   Title,
 } from "./ItemQuiz.styled";
+import converToMinutesAndSecond from "utils/converToMinutesAndSecond";
+import Ratings from "components/common/Ratings/Ratings";
 
-const ItemQuiz = () => {
+const ItemQuiz = ({ quiz }) => {
   return (
     <ItemQuizContainer to="/exam">
-      <Title>Kiểm tra an toàn bảo mật thông tin 2...</Title>
+      <Title>{quiz.title}</Title>
 
       <Infor>
         <InforItem>
           <IconImg src={ClockIcon} alt="" />
-          <InforText>7 phút</InforText>
+          <InforText>{converToMinutesAndSecond(quiz.time)}</InforText>
         </InforItem>
         <InforItem>
           <IconImg src={PointIcon} alt="" />
-          <InforText>200/250 điểm</InforText>
+          <InforText>200/{quiz.maxPoint} điểm</InforText>
         </InforItem>
       </Infor>
 
-      <RatingWrap>
-        <StartImg src={StartActive} alt="" />
-        <StartImg src={StartActive} alt="" />
-        <StartImg src={StartActive} alt="" />
-        <StartImg src={StartActive} alt="" />
-        <StartImg src={StartUnActive} alt="" />
-      </RatingWrap>
+      <Ratings ratings={quiz.ratings} />
     </ItemQuizContainer>
   );
 };

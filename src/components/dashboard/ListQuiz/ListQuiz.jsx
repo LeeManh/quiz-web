@@ -2,6 +2,7 @@ import React from "react";
 import ItemQuiz from "../ItemQuiz/ItemQuiz";
 import styled from "styled-components";
 import breakPoints from "constants/breakPoints";
+import quizs from "data/quizs";
 
 const ListQuizContainer = styled.div`
   display: grid;
@@ -16,8 +17,8 @@ const ListQuizContainer = styled.div`
 const ListQuiz = () => {
   return (
     <ListQuizContainer>
-      {Array.from({ length: 6 }, (_, i) => i).map((item, index) => (
-        <ItemQuiz key={index} />
+      {quizs.map((quiz, index) => (
+        <ItemQuiz key={quiz.id} quiz={quiz} />
       ))}
     </ListQuizContainer>
   );
