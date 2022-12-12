@@ -3,7 +3,7 @@ import styled from "styled-components";
 import breakPoints from "constants/breakPoints";
 
 export const RatingWrap = styled.div`
-  margin-top: 15px;
+  margin-top: 1rem;
 `;
 export const StartImg = styled.img`
   width: 26px;

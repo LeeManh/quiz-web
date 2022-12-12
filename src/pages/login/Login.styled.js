@@ -79,6 +79,7 @@ export const Input = styled.input`
 
 export const ErrorText = styled.div`
   margin-top: 10px;
+  color: #b91c1c;
 `;
 export const IconWrap = styled.div`
   width: 50px;

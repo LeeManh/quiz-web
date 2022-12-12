@@ -47,18 +47,13 @@ const Login = () => {
     );
 
     if (!findUser) {
-      setError("Sai user name hoặc mật khẩu");
+      setError("Sai email hoặc mật khẩu");
       return;
     }
 
     dispatch(
       loginSuccess({
-        user: {
-          email: findUser.email,
-          password: findUser.password,
-          roles: findUser.roles,
-          point: findUser.point,
-        },
+        user: findUser,
       })
     );
 

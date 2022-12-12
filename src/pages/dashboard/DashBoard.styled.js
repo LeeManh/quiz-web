@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
 import { Container } from "GolbalStyles.styled";
-import { AiOutlineSearch } from "react-icons/ai";
 import colors from "constants/colors";
 import breakPoints from "constants/breakPoints";
+import arrowDown from "assets/images/arrow-down.png";
 
 export const DashBoardContainer = styled(Container)`
   background-color: ${colors["gray-dark"]};
@@ -15,11 +15,12 @@ export const DashBoardContainer = styled(Container)`
 
   @media screen and (max-width: ${breakPoints.lg}) {
     margin-top: 65px;
+    min-height: calc(100vh - 65px);
   }
 `;
 
 export const SideMenu = styled.div`
-  max-width: 300px;
+  width: 300px;
   background-color: ${colors.gray};
   display: flex;
   flex-direction: column;
@@ -87,37 +88,20 @@ export const HeaderContent = styled.div`
   align-items: center;
   gap: 20px;
 `;
-export const SearchWrap = styled.div`
-  display: flex;
-  align-items: center;
-  flex-grow: 1;
-  height: 40px;
-  border-radius: 5px;
-  border: 1px solid black;
-  overflow: hidden;
+export const SelectLevelWrap = styled.div`
+  position: relative;
+
+  &::after {
+    z-index: 1;
+    content: url(${arrowDown});
+    position: absolute;
+    pointer-events: none;
+    top: 50%;
+    right: 0;
+    transform: translateY(calc(-50% + 3px)) scale(0.6);
+  }
 `;
-export const InputSearch = styled.input`
-  flex-grow: 1;
-  padding: 10px 20px;
-  background-color: ${colors.input};
-  height: 100%;
-  border: none;
-  outline: none;
-`;
-export const ButtonSearch = styled.button`
-  width: 60px;
-  height: 40px;
-  display: grid;
-  place-items: center;
-  background-color: white;
-  cursor: pointer;
-  border: none;
-  outline: none;
-`;
-export const IconSearch = styled(AiOutlineSearch)`
-  width: 20px;
-  height: 20px;
-`;
+
 export const SelectLevel = styled.select`
   width: 200px;
   height: 40px;
@@ -125,9 +109,16 @@ export const SelectLevel = styled.select`
   border: 1px solid black;
   padding: 0 20px;
   margin-left: auto;
+  outline: none;
+  appearance: none;
 
   @media screen and (max-width: ${breakPoints.md}) {
     padding: 0 10px;
+  }
+
+  /* IE11 hide native button  */
+  &::-ms-expand {
+    display: none;
   }
 `;
 export const MainContent = styled.div`
@@ -148,6 +139,7 @@ export const NavBar = styled(Container)`
   background-color: ${colors.navbar};
   height: 65px;
   position: fixed;
+  z-index: 100;
   top: 0;
   width: 100vw;
   display: none;
@@ -168,7 +160,7 @@ export const NavBarIconWrap = styled.div`
   cursor: pointer;
 
   > svg {
-    font-size: 24px;
+    font-size: 2.4rem;
   }
 `;
 export const NavBarTitle = styled.span`
@@ -176,5 +168,6 @@ export const NavBarTitle = styled.span`
   width: 100%;
   font-weight: bold;
   color: white;
-  font-size: 20px;
+  font-size: 2rem;
+  user-select: none;
 `;

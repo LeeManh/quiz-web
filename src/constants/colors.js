@@ -3,6 +3,7 @@ const colors = {
   gray: "#d9d9d9",
   input: "#f3f1f1",
   navbar: "#545151",
+  green: "#92FD9D",
 };
 
 export default colors;

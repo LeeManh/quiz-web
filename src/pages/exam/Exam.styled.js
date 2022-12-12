@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import { Container } from "GolbalStyles.styled";
 import breakPoints from "constants/breakPoints";
+import colors from "constants/colors";
 
 export const ExamContainer = styled(Container)`
   display: flex;
@@ -24,17 +25,9 @@ export const HeaderExam = styled.div`
 `;
 export const Title = styled.div`
   font-weight: bold;
-  font-size: 18px;
+  font-size: 1.8rem;
 `;
-export const TimeExist = styled.div`
-  font-size: 14px;
-`;
-export const TimeLine = styled.div`
-  width: 100%;
-  height: 15px;
-  border-radius: 4px;
-  background-color: #41c54e;
-`;
+
 export const ContentExam = styled.div`
   background-color: #c4c4c4;
   flex-grow: 1;
@@ -44,7 +37,7 @@ export const ContentExam = styled.div`
 `;
 export const QuestionParam = styled.div`
   font-weight: bold;
-  font-size: 18px;
+  font-size: 1.8rem;
 `;
 export const AnswerForm = styled.form`
   display: flex;
@@ -53,15 +46,57 @@ export const AnswerForm = styled.form`
   margin-top: 20px;
   padding-left: 20px;
 `;
-export const AnswerLabel = styled.label`
-  display: flex;
-  gap: 10px;
-  cursor: pointer;
+export const Checkmark = styled.span`
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background-color: ${colors.gray};
+  border: 1px solid black;
+  border-radius: 4px;
 
-  > span {
-    font-size: 18px;
+  &::after {
+    content: "";
+    position: absolute;
+    display: none;
+
+    left: 6px;
+    top: 3px;
+
+    width: 3px;
+    height: 8px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
   }
 `;
+export const AnswerLabel = styled.label`
+  cursor: pointer;
+  display: inline-block;
+
+  position: relative;
+  padding-left: 4rem;
+  margin-bottom: 1.2rem;
+  user-select: none;
+  font-size: 1.8rem;
+
+  > input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+
+    &:checked ~ ${Checkmark} {
+      background-color: #2196f3;
+    }
+    &:checked ~ ${Checkmark}:after {
+      display: block;
+    }
+  }
+`;
+
 export const ButtonsWrap = styled.div`
   display: flex;
   align-items: center;
@@ -75,7 +110,7 @@ export const Button = styled.button`
   font-weight: bold;
   padding: 12px 24px;
   border-radius: 4px;
-  cursor: pointer;
+  cursor: ${(props) => (props.disabled ? "default" : "pointer")};
   margin-top: auto;
 `;
 export const ButtonGotoWrap = styled.div`
@@ -86,52 +121,6 @@ export const ButtonGotoWrap = styled.div`
   @media screen and (max-width: ${breakPoints.md}) {
     display: flex;
   }
-`;
-
-export const SideMenu = styled.div`
-  background-color: #d9d9d9;
-  padding: 30px;
-  border: 1px solid rgba(0, 0, 0, 0.5);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-
-  @media screen and (min-width: 769px) {
-    max-width: 300px;
-  }
-
-  @media screen and (max-width: ${breakPoints.md}) {
-    max-width: 400px;
-    position: fixed;
-    z-index: 100;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    height: 80%;
-    width: 80%;
-    display: ${(props) => (props.show ? "flex" : "none")};
-  }
-`;
-export const ListBtnQuesion = styled.div`
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 10px;
-
-  @media screen and (max-width: 320px) {
-    grid-template-columns: repeat(3, 1fr);
-  }
-`;
-export const ButtonQuestion = styled.button`
-  width: 40px;
-  height: 40px;
-  border-radius: 4px;
-  cursor: pointer;
-  outline: none;
-  border: ${(props) =>
-    props.isActive ? " 2px solid black" : "1px solid rgba(0, 0, 0, 0.5)"};
-
-  background-color: ${(props) => (props.isActive ? "#92FD9D" : "white")};
 `;
 
 export const ButtonRound = styled.button`
@@ -154,44 +143,4 @@ export const ButtonBackDashBoard = styled(Link)`
   color: black;
 
   text-decoration: none;
-`;
-
-export const ExamFinishContainer = styled.div`
-  display: grid;
-  place-items: center;
-  height: 100vh;
-  background-color: #c4c4c4;
-`;
-export const FinishWrap = styled.div`
-  padding: 30px 30px 50px;
-  background: #d9d9d9;
-  border: 1px solid rgba(0, 0, 0, 0.5);
-  border-radius: 4px;
-  width: 80%;
-  max-width: 600px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-`;
-
-export const ContentFinish = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
-  gap: 20px;
-`;
-export const ContentLeftFinish = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-`;
-export const PointText = styled.div`
-  font-weight: bold;
-  font-size: 16px;
-`;
-export const ButtonBackDashBoardWrap = styled.div`
-  display: flex;
-  justify-content: center;
 `;
