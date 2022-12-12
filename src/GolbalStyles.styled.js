@@ -6,12 +6,17 @@ export const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
   }
+  html {
+    font-size: 62.5%;
+  }
   
   body {
-    font-size: 15px; 
+    font-size: 1.5rem; 
     color: black;
   }
-
+  button {
+    user-select: none;
+  }
   a {
     text-decoration: none;
     color: inherit;

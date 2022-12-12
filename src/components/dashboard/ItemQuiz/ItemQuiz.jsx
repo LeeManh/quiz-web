@@ -7,15 +7,22 @@ import {
   InforItem,
   InforText,
   ItemQuizContainer,
+  Tag,
   Title,
 } from "./ItemQuiz.styled";
 import converToMinutesAndSecond from "utils/converToMinutesAndSecond";
 import Ratings from "components/common/Ratings/Ratings";
+import pathRoutes from "constants/pathRoutes";
 
-const ItemQuiz = ({ quiz }) => {
+const ItemQuiz = ({ quiz, user }) => {
+  const findPoint = user.points.find((point) => +point.idQuiz === quiz.id);
+  const userPoint = findPoint?.userMaxPoint || 0;
+
   return (
-    <ItemQuizContainer to="/exam">
+    <ItemQuizContainer to={`${pathRoutes.exam}/${quiz.id}`}>
       <Title>{quiz.title}</Title>
+
+      <Tag>{quiz.difficulty}</Tag>
 
       <Infor>
         <InforItem>
@@ -24,7 +31,9 @@ const ItemQuiz = ({ quiz }) => {
         </InforItem>
         <InforItem>
           <IconImg src={PointIcon} alt="" />
-          <InforText>200/{quiz.maxPoint} điểm</InforText>
+          <InforText>
+            {userPoint}/{quiz.maxPoint} điểm
+          </InforText>
         </InforItem>
       </Infor>
 

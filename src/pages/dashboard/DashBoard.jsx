@@ -1,52 +1,109 @@
 import React, { useEffect, useState } from "react";
 import { BiMenu } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
+import { createSearchParams, useNavigate } from "react-router-dom";
 
-import Pagination from "components/common/Pagination";
+import Pagination from "components/common/Pagination/Pagination";
 import { OverLay } from "GolbalStyles.styled";
 import ListQuiz from "components/dashboard/ListQuiz/ListQuiz";
 import {
   AvatarWrap,
   Button,
-  ButtonSearch,
   Content,
   DashBoardContainer,
   HeaderContent,
-  IconSearch,
   InforText,
-  InputSearch,
   ListQuizWrap,
   MainContent,
   NavBar,
   NavBarIconWrap,
   NavBarTitle,
   PaginationWrap,
-  SearchWrap,
   SelectLevel,
+  SelectLevelWrap,
   SideMenu,
   TopSideMenu,
 } from "./DashBoard.styled";
 import { logout, selectAuth } from "redux/authSlice";
+import quizs from "data/quizs";
+import useQueryConfig from "hooks/useQueryConfig";
+import pathRoutes from "constants/pathRoutes";
+import Search from "components/common/Search/Search";
+import useSearchQuiz from "hooks/useSearchQuiz";
 
 const DashBoard = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const { user } = useSelector(selectAuth);
 
-  const [isOpenMenu, setIsOpenMenu] = useState(false);
+  const { handleChangeSearch, handleSubmitSearch, inputSearch } =
+    useSearchQuiz();
 
-  const RenderNavBar = () => {
-    return (
-      <NavBar>
-        <NavBarIconWrap onClick={() => setIsOpenMenu(true)}>
-          <BiMenu />
-        </NavBarIconWrap>
-        <NavBarTitle>DashBoard</NavBarTitle>
-      </NavBar>
-    );
+  const [isOpenMenu, setIsOpenMenu] = useState(false);
+  const [difficulty, setDifficulty] = useState("all");
+
+  const queryConfig = useQueryConfig();
+
+  const start = (queryConfig.page - 1) * queryConfig.limit;
+  const end = queryConfig.page * queryConfig.limit;
+
+  const allQuizs = quizs.filter((quiz) => {
+    if (
+      queryConfig?.search &&
+      !quiz.title
+        .toLocaleLowerCase()
+        .includes(queryConfig.search?.toLocaleLowerCase())
+    )
+      return false;
+
+    if (queryConfig?.difficulty && queryConfig.difficulty === "all")
+      return true;
+
+    if (queryConfig?.difficulty && quiz.difficulty !== queryConfig.difficulty)
+      return false;
+
+    return true;
+  });
+
+  const quizsRender = allQuizs.slice(start, end);
+
+  const userPoint = user.points.reduce(
+    (sum, point) => point.userMaxPoint + sum,
+    0
+  );
+
+  const handleChangeDifficulty = (e) => {
+    setDifficulty(e.target.value);
+    navigate({
+      to: pathRoutes.dashboard,
+      search: createSearchParams({
+        ...queryConfig,
+        page: 1,
+        difficulty: e.target.value,
+      }).toString(),
+    });
+  };
+
+  const onPageChange = (page) => {
+    navigate({
+      to: pathRoutes.dashboard,
+      search: createSearchParams({
+        ...queryConfig,
+        page,
+      }).toString(),
+    });
   };
 
   const handleLogout = () => {
     dispatch(logout());
+  };
+
+  const openMenu = () => {
+    setIsOpenMenu(true);
+  };
+  const closeMenu = () => {
+    setIsOpenMenu(false);
   };
 
   useEffect(() => {
@@ -56,48 +113,63 @@ const DashBoard = () => {
 
   return (
     <>
-      <RenderNavBar />
+      <NavBar>
+        <NavBarIconWrap onClick={openMenu}>
+          <BiMenu />
+        </NavBarIconWrap>
+        <NavBarTitle>DashBoard</NavBarTitle>
+      </NavBar>
 
       <DashBoardContainer>
         <SideMenu show={isOpenMenu}>
           <TopSideMenu>
             <AvatarWrap>
-              <img
-                src="https://images.unsplash.com/photo-1669406999312-0821a42a3887?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=771&q=80"
-                alt=""
-              />
+              <img src={user.avatar} alt="" />
             </AvatarWrap>
             <InforText>User : {user.email}</InforText>
-            <InforText>Point : {user.point}</InforText>
+            <InforText>Point : {userPoint}</InforText>
           </TopSideMenu>
 
-          <Button onClick={handleLogout}>Đăng xuất</Button>
+          <Button onClick={handleLogout}>Logout</Button>
         </SideMenu>
-        <OverLay show={isOpenMenu} onClick={() => setIsOpenMenu(false)} />
+        <OverLay show={isOpenMenu} onClick={closeMenu} />
 
         <Content>
           <HeaderContent>
-            <SearchWrap>
-              <InputSearch placeholder="Search ..." />
-              <ButtonSearch>
-                <IconSearch />
-              </ButtonSearch>
-            </SearchWrap>
+            <Search
+              value={inputSearch}
+              onChange={handleChangeSearch}
+              onSubmit={handleSubmitSearch}
+            />
 
-            <SelectLevel>
-              <option value="1">Difficult</option>
-              <option value="2">Medium</option>
-              <option value="3">Easy</option>
-            </SelectLevel>
+            <SelectLevelWrap>
+              <SelectLevel value={difficulty} onChange={handleChangeDifficulty}>
+                <option value="all">All</option>
+                <option value="hard">Hard</option>
+                <option value="medium">Medium</option>
+                <option value="easy">Easy</option>
+              </SelectLevel>
+            </SelectLevelWrap>
           </HeaderContent>
 
           <MainContent>
             <ListQuizWrap>
-              <ListQuiz />
+              {queryConfig.search && (
+                <div style={{ marginBottom: "1.5rem" }}>
+                  Kết quả tìm kiếm cho : {queryConfig.search}
+                </div>
+              )}
+              <ListQuiz quizs={quizsRender} user={user} />
             </ListQuizWrap>
 
             <PaginationWrap>
-              <Pagination />
+              <Pagination
+                totalCount={allQuizs.length}
+                siblingCount={1}
+                currentPage={+queryConfig.page}
+                pageSize={+queryConfig.limit}
+                onPageChange={onPageChange}
+              />
             </PaginationWrap>
           </MainContent>
         </Content>
