@@ -5,6 +5,7 @@ import breakPoints from "constants/breakPoints";
 export const LoginContainer = styled.div`
   height: 100vh;
   width: 100vw;
+  position: relative;
   background: url(${bg}) no-repeat center;
   background-size: cover;
 `;

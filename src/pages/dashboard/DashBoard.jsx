@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { BiMenu } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
-import { createSearchParams, useNavigate } from "react-router-dom";
+import { createSearchParams, Link, useNavigate } from "react-router-dom";
 
 import Pagination from "components/common/Pagination/Pagination";
 import { OverLay } from "GolbalStyles.styled";
@@ -13,6 +13,7 @@ import {
   DashBoardContainer,
   HeaderContent,
   InforText,
+  LinkWrap,
   ListQuizWrap,
   MainContent,
   NavBar,
@@ -25,17 +26,21 @@ import {
   TopSideMenu,
 } from "./DashBoard.styled";
 import { logout, selectAuth } from "redux/authSlice";
-import quizs from "data/quizs";
+
 import useQueryConfig from "hooks/useQueryConfig";
 import pathRoutes from "constants/pathRoutes";
 import Search from "components/common/Search/Search";
 import useSearchQuiz from "hooks/useSearchQuiz";
+import { selectAllQuizs } from "redux/quizSlice";
+import { checkIsAdmin } from "utils/checkIsAdmin";
+import getQuizs from "utils/quizs";
 
 const DashBoard = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const { user } = useSelector(selectAuth);
+  const quizs = useSelector(selectAllQuizs);
 
   const { handleChangeSearch, handleSubmitSearch, inputSearch } =
     useSearchQuiz();
@@ -45,28 +50,7 @@ const DashBoard = () => {
 
   const queryConfig = useQueryConfig();
 
-  const start = (queryConfig.page - 1) * queryConfig.limit;
-  const end = queryConfig.page * queryConfig.limit;
-
-  const allQuizs = quizs.filter((quiz) => {
-    if (
-      queryConfig?.search &&
-      !quiz.title
-        .toLocaleLowerCase()
-        .includes(queryConfig.search?.toLocaleLowerCase())
-    )
-      return false;
-
-    if (queryConfig?.difficulty && queryConfig.difficulty === "all")
-      return true;
-
-    if (queryConfig?.difficulty && quiz.difficulty !== queryConfig.difficulty)
-      return false;
-
-    return true;
-  });
-
-  const quizsRender = allQuizs.slice(start, end);
+  const { allQuizs, quizsRender } = getQuizs(quizs, queryConfig);
 
   const userPoint = user.points.reduce(
     (sum, point) => point.userMaxPoint + sum,
@@ -128,6 +112,11 @@ const DashBoard = () => {
             </AvatarWrap>
             <InforText>User : {user.email}</InforText>
             <InforText>Point : {userPoint}</InforText>
+            {checkIsAdmin(user?.roles) && (
+              <LinkWrap>
+                <Link to={pathRoutes.adminQuizs}>Admin DoashBoard</Link>
+              </LinkWrap>
+            )}
           </TopSideMenu>
 
           <Button onClick={handleLogout}>Logout</Button>

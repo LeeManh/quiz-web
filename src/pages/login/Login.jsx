@@ -5,7 +5,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 
-import { Container } from "../../GolbalStyles.styled";
+import { Container } from "GolbalStyles.styled";
+
 import {
   ButtonForm,
   CameraIcon,
@@ -22,7 +23,7 @@ import {
 } from "./Login.styled";
 import CameraImg from "assets/images/camera-icon.png";
 import users from "data/users";
-import schema from "utils/rules";
+import authSchema from "utils/rules";
 import { loginSuccess } from "redux/authSlice";
 
 const Login = () => {
@@ -33,7 +34,7 @@ const Login = () => {
     reset,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(authSchema),
   });
 
   const [error, setError] = useState(null);

@@ -13,6 +13,7 @@ export const GlobalStyle = createGlobalStyle`
   body {
     font-size: 1.5rem; 
     color: black;
+   
   }
   button {
     user-select: none;
@@ -31,6 +32,7 @@ export const Container = styled.div`
 `;
 
 export const OverLay = styled.div`
+  z-index: 10;
   position: fixed;
   inset: 0;
   background-color: rgba(0, 0, 0, 0.3);
