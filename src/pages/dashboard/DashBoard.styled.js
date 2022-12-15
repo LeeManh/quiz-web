@@ -90,6 +90,7 @@ export const HeaderContent = styled.div`
 `;
 export const SelectLevelWrap = styled.div`
   position: relative;
+  margin-left: auto;
 
   &::after {
     z-index: 1;
@@ -108,7 +109,7 @@ export const SelectLevel = styled.select`
   border-radius: 5px;
   border: 1px solid black;
   padding: 0 20px;
-  margin-left: auto;
+
   outline: none;
   appearance: none;
 
@@ -170,4 +171,14 @@ export const NavBarTitle = styled.span`
   color: white;
   font-size: 2rem;
   user-select: none;
+`;
+
+export const LinkWrap = styled.div`
+  font-weight: bold;
+
+  &:hover {
+    color: blue;
+    text-decoration: underline;
+    transition: 0.2s;
+  }
 `;

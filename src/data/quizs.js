@@ -148,7 +148,7 @@ const quizs = [
     id: 3,
     title: "Geography",
     time: 300,
-    maxPoint: 250,
+    maxPoint: 500,
     ratings: 3,
     difficulty: "hard",
     questions: [
@@ -224,7 +224,7 @@ const quizs = [
     id: 4,
     title: "Music",
     time: 300,
-    maxPoint: 250,
+    maxPoint: 500,
     ratings: 3,
     difficulty: "easy",
     questions: [
@@ -306,7 +306,7 @@ const quizs = [
     id: 5,
     title: "Science",
     time: 10,
-    maxPoint: 250,
+    maxPoint: 500,
     ratings: 3,
     difficulty: "easy",
     questions: [

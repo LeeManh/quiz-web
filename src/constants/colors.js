@@ -4,6 +4,7 @@ const colors = {
   input: "#f3f1f1",
   navbar: "#545151",
   green: "#92FD9D",
+  yellow: "#eee7a9",
 };
 
 export default colors;

@@ -1,9 +1,10 @@
-import pathRoutes from "constants/pathRoutes";
+// import pathRoutes from "constants/pathRoutes";
 import { useState } from "react";
-import { createSearchParams, useNavigate } from "react-router-dom";
+import { createSearchParams, useLocation, useNavigate } from "react-router-dom";
 import useQueryConfig from "./useQueryConfig";
 
 const useSearchQuiz = () => {
+  const { pathname } = useLocation();
   const navigate = useNavigate();
   const queryConfig = useQueryConfig();
 
@@ -13,7 +14,7 @@ const useSearchQuiz = () => {
 
   const handleSubmitSearch = () => {
     navigate({
-      to: pathRoutes.dashboard,
+      to: pathname,
       search: createSearchParams({
         ...queryConfig,
         page: 1,

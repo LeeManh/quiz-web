@@ -1,6 +1,6 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import {
   ButtonRound,
@@ -17,16 +17,17 @@ import {
   ButtonGotoWrap,
   Checkmark,
 } from "./Exam.styled";
-import quizs from "data/quizs";
 
 import ExamFinish from "components/exam/ExamFinish/ExamFinish";
 import { updateUserPoint } from "redux/authSlice";
 import SideMenuButton from "components/exam/SideMenuButton/SideMenuButton";
 import CountDownTime from "components/common/CountDownTime/CountDownTime";
+import { selectAllQuizs } from "redux/quizSlice";
 
 const Exam = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
+  const quizs = useSelector(selectAllQuizs);
 
   const [isFinish, setIsFinish] = useState(false);
   const [isOpenMenu, setIsOpenMenu] = useState(false);
@@ -144,8 +145,11 @@ const Exam = () => {
     }));
   };
   // Trả về A,B,C,D của câu trả lời tương ứng với index
-  const positionAnswer = (index) =>
-    index === 0 ? "A" : index === 1 ? "B" : index === 2 ? "C" : "D";
+  const positionAnswer = useCallback(
+    (index) =>
+      index === 0 ? "A" : index === 1 ? "B" : index === 2 ? "C" : "D",
+    []
+  );
 
   const handleExpiredTime = () => {
     setIsFinish(true);
