@@ -8,3 +8,6 @@ Tài khoản đăng nhập
 
 admin@gmail.com
 123456
+
+user01@gmail.com
+123456
